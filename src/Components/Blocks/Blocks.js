@@ -178,7 +178,11 @@ const Blocks = () => {
 	}, []);
 
 	const fetchBlock = () => {
-		axios.get(BASE_API + `/api/blocks`).then((res) => setBlocks(res.data));
+		axios
+			.get(BASE_API + `/api/blocks`)
+			.then((res) =>
+				setBlocks(res.data.sort((a, b) => b.timestamp - a.timestamp)),
+			);
 	};
 
 	// Avoid a layout jump when reaching the last page with empty rows.
@@ -212,21 +216,23 @@ const Blocks = () => {
 								page * rowsPerPage + rowsPerPage,
 						  )
 						: blocks
-					)?.map((transaction) => (
-						// <TableRow
-						// 	key={item.hash}
-						// 	sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-						// >
-						// 	<TableCell component="th" scope="row">
-						// 		{item.hash}
-						// 	</TableCell>
-						// 	<TableCell align="right">{item.data.length}</TableCell>
-						// 	<TableCell align="right">
-						// 		{new Date(item.timestamp).toLocaleString()}
-						// 	</TableCell>
-						// </TableRow>
-						<Block transaction={transaction} key={transaction.hash} />
-					))}
+					)?.map((transaction) => {
+						return (
+							// <TableRow
+							// 	key={item.hash}
+							// 	sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+							// >
+							// 	<TableCell component="th" scope="row">
+							// 		{item.hash}
+							// 	</TableCell>
+							// 	<TableCell align="right">{item.data.length}</TableCell>
+							// 	<TableCell align="right">
+							// 		{new Date(item.timestamp).toLocaleString()}
+							// 	</TableCell>
+							// </TableRow>
+							<Block transaction={transaction} key={transaction.hash} />
+						);
+					})}
 
 					{emptyRows > 0 && (
 						<TableRow style={{ height: 53 * emptyRows }}>

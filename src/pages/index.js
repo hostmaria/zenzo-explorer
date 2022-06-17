@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import Blocks from "../Components/Blocks/Blocks";
 import CollapsibleTable from "../Components/Blocks/Collapse";
+import ConductTransaction from "../Components/ConductTransaction/ConductTransaction";
 import WalletInfo from "../Components/WalletInfo/WalletInfo";
 
 import { BASE_API } from "../Constant";
@@ -26,6 +27,7 @@ const Homepage = () => {
 			</Grid>
 			<Grid item xs={4}>
 				<WalletInfo address={wallet?.address} balance={wallet?.balance} />
+				<ConductTransaction fetchWalet={fetchWalet()} />
 			</Grid>
 		</Grid>
 	);

@@ -26,7 +26,7 @@ const Footer = () => {
 			padding="5px 25px"
 		>
 			<Typography>
-				&copy; {new Date().getFullYear()} Hostcoin. All rights reserved
+				&copy; {new Date().getFullYear()} MariaCoin. All rights reserved
 			</Typography>
 
 			<div>
