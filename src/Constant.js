@@ -1,1 +1,1 @@
-export const BASE_API = "http://localhost:3001";
+export const BASE_API = "https://chainz.cryptoid.info/znz/api.dws";

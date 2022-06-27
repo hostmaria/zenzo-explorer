@@ -7,6 +7,7 @@ import Homepage from "./pages";
 import About from "./pages/About/About";
 import Explorer from "./pages/Explorer/Explorer";
 import Blogs from "./pages/Blogs/Blogs";
+import TopHolders from "./pages/TopHolders/TopHolders";
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 				<Route exact path="/Explorer" element={<Explorer />} />
 				<Route exact path="/about" element={<About />} />
 				<Route exact path="/blogs" element={<Blogs />} />
+				<Route exact path="/top-holders" element={<TopHolders />} />
 			</Routes>
 			<Footer />
 		</div>

@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 
 const pages = [
 	{ text: "Home", to: "/" },
+	{ text: "Top Holders", to: "/top-holders" },
 	{ text: "Explorer", to: "/Explorer" },
 	{ text: "About Us", to: "/about" },
 	{ text: "Blogs", to: "/blogs" },
@@ -60,7 +61,7 @@ const ResponsiveAppBar = () => {
 								textDecoration: "none",
 							}}
 						>
-							MariaCoin
+							Zenzo Explorer
 						</Typography>
 					</Link>
 
@@ -122,7 +123,7 @@ const ResponsiveAppBar = () => {
 							textDecoration: "none",
 						}}
 					>
-						MariaCoin
+						Zenzo Explorer
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page, index) => (
