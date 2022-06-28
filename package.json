@@ -1,7 +1,8 @@
 {
-	"name": "mariacoin",
+	"name": "Zenzo Explorer",
 	"version": "0.1.0",
 	"private": true,
+	"homepahe": "/",
 	"dependencies": {
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",
