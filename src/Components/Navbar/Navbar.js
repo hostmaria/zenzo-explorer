@@ -17,9 +17,9 @@ import { Link } from "react-router-dom";
 const pages = [
 	{ text: "Home", to: "/" },
 	{ text: "Top Holders", to: "/top-holders" },
-	{ text: "Explorer", to: "/Explorer" },
 	{ text: "About Us", to: "/about" },
 	{ text: "Blogs", to: "/blogs" },
+	{ text: "Forum", to: "/forum" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout", "Login"];
 
@@ -46,7 +46,6 @@ const ResponsiveAppBar = () => {
 		<AppBar position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 					<Link to="/" style={{ textDecoration: "none", color: "white" }}>
 						<Typography
 							variant="h6"

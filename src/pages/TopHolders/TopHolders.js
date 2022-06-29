@@ -21,7 +21,8 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 
 import { BASE_API } from "../../Constant";
-import { TableHead } from "@mui/material";
+import { TableHead, Typography } from "@mui/material";
+import Error from "../../Components/Error/Error";
 
 function TablePaginationActions(props) {
 	const theme = useTheme();
@@ -96,16 +97,26 @@ export default function TopHolders() {
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 	const [topHolderList, setTopHolderList] = useState([]);
+	const [error, setError] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchTopHolders = () => {
 		axios
 			.get(BASE_API + "?q=rich")
-			.then((res) => setTopHolderList(res.data.rich1000));
+			.then(
+				(res) => setTopHolderList(res.data.rich1000),
+				setIsLoading(false),
+				setError(false),
+			)
+			.catch(
+				(err) => setError(true),
+				setIsLoading(false),
+				setTopHolderList([]),
+			);
 	};
 
 	useEffect(() => {
 		fetchTopHolders();
-		console.log(topHolderList[0]);
 	}, []);
 
 	// Avoid a layout jump when reaching the last page with empty rows.
@@ -122,66 +133,93 @@ export default function TopHolders() {
 	};
 
 	return (
-		<Box sx={{ border: 1, margin: 3, maxWidth: 800 }}>
-			<TableContainer component={Paper}>
-				<Table sx={{ maxWidth: 800 }} aria-label="custom pagination table">
-					<TableHead>
-						<TableRow>
-							<TableCell align="center">Rank</TableCell>
-							<TableCell align="center">Address</TableCell>
-							<TableCell align="center">Amount</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{(rowsPerPage > 0
-							? topHolderList.slice(
-									page * rowsPerPage,
-									page * rowsPerPage + rowsPerPage,
-							  )
-							: topHolderList
-						).map((row, index) => (
-							<TableRow key={row.name}>
-								<TableCell component="th" scope="row" align="center">
-									{index + 1}
+		<>
+			{isLoading && <h1>loading</h1>}
+			<Box sx={{ border: 1, margin: 3, maxWidth: 800 }}>
+				<Typography variant="h5" color="initial">
+					List of top 1000 Zenzo holder address
+				</Typography>
+				<TableContainer component={Paper}>
+					<Table sx={{ maxWidth: 800 }} aria-label="custom pagination table">
+						<TableHead>
+							<TableRow>
+								<TableCell
+									sx={{ borderRight: "2px solid #d3d3d3" }}
+									align="center"
+								>
+									Rank
 								</TableCell>
-								<TableCell component="th" scope="row" align="center">
-									{row.addr}
+								<TableCell
+									sx={{ borderRight: "2px solid #d3d3d3" }}
+									align="center"
+								>
+									Address
 								</TableCell>
-
-								<TableCell style={{ width: 160 }} align="center">
-									{row.amount}
-								</TableCell>
+								<TableCell align="center">Amount</TableCell>
 							</TableRow>
-						))}
+						</TableHead>
+						{error && <Error />}
+						<TableBody>
+							{(rowsPerPage > 0
+								? topHolderList.slice(
+										page * rowsPerPage,
+										page * rowsPerPage + rowsPerPage,
+								  )
+								: topHolderList
+							).map((row, index) => (
+								<TableRow key={row.name}>
+									<TableCell
+										sx={{ borderRight: "2px solid #d3d3d3" }}
+										component="th"
+										scope="row"
+										align="center"
+									>
+										{index + 1}
+									</TableCell>
+									<TableCell
+										sx={{ borderRight: "2px solid #d3d3d3" }}
+										component="th"
+										scope="row"
+										align="center"
+									>
+										{row.addr}
+									</TableCell>
 
-						{emptyRows > 0 && (
-							<TableRow style={{ height: 53 * emptyRows }}>
-								<TableCell colSpan={6} />
+									<TableCell style={{ width: 160 }} align="center">
+										{row.amount}
+									</TableCell>
+								</TableRow>
+							))}
+
+							{emptyRows > 0 && (
+								<TableRow style={{ height: 53 * emptyRows }}>
+									<TableCell colSpan={6} />
+								</TableRow>
+							)}
+						</TableBody>
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									rowsPerPageOptions={[10, 20, 30, { label: "All", value: -1 }]}
+									colSpan={3}
+									count={topHolderList.length}
+									rowsPerPage={rowsPerPage}
+									page={page}
+									SelectProps={{
+										inputProps: {
+											"aria-label": "rows per page",
+										},
+										native: true,
+									}}
+									onPageChange={handleChangePage}
+									onRowsPerPageChange={handleChangeRowsPerPage}
+									ActionsComponent={TablePaginationActions}
+								/>
 							</TableRow>
-						)}
-					</TableBody>
-					<TableFooter>
-						<TableRow>
-							<TablePagination
-								rowsPerPageOptions={[10, 20, 30, { label: "All", value: -1 }]}
-								colSpan={3}
-								count={topHolderList.length}
-								rowsPerPage={rowsPerPage}
-								page={page}
-								SelectProps={{
-									inputProps: {
-										"aria-label": "rows per page",
-									},
-									native: true,
-								}}
-								onPageChange={handleChangePage}
-								onRowsPerPageChange={handleChangeRowsPerPage}
-								ActionsComponent={TablePaginationActions}
-							/>
-						</TableRow>
-					</TableFooter>
-				</Table>
-			</TableContainer>
-		</Box>
+						</TableFooter>
+					</Table>
+				</TableContainer>
+			</Box>
+		</>
 	);
 }

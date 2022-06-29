@@ -1,8 +1,8 @@
 {
-	"name": "Zenzo Explorer",
+	"name": "ZenzoExplorer",
 	"version": "0.1.0",
 	"private": true,
-	"homepahe": "/",
+	"homepage": "/",
 	"dependencies": {
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",

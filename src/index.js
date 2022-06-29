@@ -5,15 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { ThemeProvider } from "@mui/system";
+import theme from "./theme";
 
 const history = createBrowserHistory();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
-		<Router history={history}>
-			<App />
-		</Router>
+		<ThemeProvider theme={theme}>
+			<Router history={history}>
+				<App />
+			</Router>
+		</ThemeProvider>
 	</React.StrictMode>,
 );
 
