@@ -18,7 +18,7 @@ const Search = () => {
 			>
 				<TextField
 					fullWidth
-					placeholder="Search address, bloc, transaction, tag..."
+					placeholder="Search address, block, transaction, tag..."
 				/>
 				<Button sx={{ margin: 2 }} variant="contained">
 					Search
