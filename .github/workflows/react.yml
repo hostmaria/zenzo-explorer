@@ -27,3 +27,6 @@ jobs:
           cache: "npm"
       - run: npm i
       - run: CI='' npm run build
+      - run:
+          mv /root/hello-react/hello-react/zenzo-explorer/zenzo-explorer/build
+          /var/www/html
