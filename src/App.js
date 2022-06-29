@@ -8,11 +8,13 @@ import About from "./pages/About/About";
 import Explorer from "./pages/Explorer/Explorer";
 import Blogs from "./pages/Blogs/Blogs";
 import TopHolders from "./pages/TopHolders/TopHolders";
+import Search from "./Components/Search/Search";
 
 function App() {
 	return (
 		<div className="App">
 			<Navbar />
+			<Search />
 			<Routes>
 				<Route exact path="/" element={<Homepage />} />
 				<Route exact path="/Explorer" element={<Explorer />} />
