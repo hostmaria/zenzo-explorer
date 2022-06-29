@@ -22,6 +22,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 
 import { BASE_API } from "../../Constant";
 import { TableHead, Typography } from "@mui/material";
+import Error from "../../Components/Error/Error";
 
 function TablePaginationActions(props) {
 	const theme = useTheme();
@@ -96,16 +97,26 @@ export default function TopHolders() {
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 	const [topHolderList, setTopHolderList] = useState([]);
+	const [error, setError] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchTopHolders = () => {
 		axios
 			.get(BASE_API + "?q=rich")
-			.then((res) => setTopHolderList(res.data.rich1000));
+			.then(
+				(res) => setTopHolderList(res.data.rich1000),
+				setIsLoading(false),
+				setError(false),
+			)
+			.catch(
+				(err) => setError(true),
+				setIsLoading(false),
+				setTopHolderList([]),
+			);
 	};
 
 	useEffect(() => {
 		fetchTopHolders();
-		console.log(topHolderList[0]);
 	}, []);
 
 	// Avoid a layout jump when reaching the last page with empty rows.
@@ -123,6 +134,7 @@ export default function TopHolders() {
 
 	return (
 		<>
+			{isLoading && <h1>loading</h1>}
 			<Box sx={{ border: 1, margin: 3, maxWidth: 800 }}>
 				<Typography variant="h5" color="initial">
 					List of top 1000 Zenzo holder address
@@ -146,6 +158,7 @@ export default function TopHolders() {
 								<TableCell align="center">Amount</TableCell>
 							</TableRow>
 						</TableHead>
+						{error && <Error />}
 						<TableBody>
 							{(rowsPerPage > 0
 								? topHolderList.slice(

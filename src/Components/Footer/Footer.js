@@ -25,7 +25,14 @@ const Footer = () => {
 			padding="5px 25px"
 		>
 			<Typography>
-				&copy; {new Date().getFullYear()} Zenzo Explorer. All rights reserved
+				&copy; {new Date().getFullYear()} Zenzo Explorer | All rights reserved |
+				Project of{" "}
+				<a
+					style={{ textDecoration: "none", color: "#000" }}
+					href="https://hostmaria.com"
+				>
+					HostMaria
+				</a>
 			</Typography>
 
 			<div>
