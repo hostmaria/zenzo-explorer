@@ -46,7 +46,6 @@ const ResponsiveAppBar = () => {
 		<AppBar position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 					<Link to="/" style={{ textDecoration: "none", color: "white" }}>
 						<Typography
 							variant="h6"
