@@ -21,7 +21,8 @@ const Search = () => {
 					value={textFeild}
 					onChange={(e) => setTextFeild(e.target.value)}
 					fullWidth
-					placeholder="Search address, block, transaction, tag..."
+					// placeholder="Search address, block, transaction, tag..."
+					placeholder="This feature is currently in development mode... Please try later..."
 				/>
 				<Button sx={{ margin: 2 }} variant="contained">
 					Search
