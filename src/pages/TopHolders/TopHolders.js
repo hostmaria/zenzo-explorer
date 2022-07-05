@@ -94,13 +94,13 @@ TablePaginationActions.propTypes = {
 };
 
 export default function TopHolders() {
+	const dispatch = useDispatch();
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
-	// const [topHolderList, setTopHolderList] = useState([]);
-	const [error, setError] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
-	const dispatch = useDispatch();
-
+	const error = useSelector((state) => state.fetchTopHolderReducer.isError);
+	const isLoading = useSelector(
+		(state) => state.fetchTopHolderReducer.isLoading,
+	);
 	const topHolderList = useSelector(
 		(state) => state.fetchTopHolderReducer.topHolders || [],
 	);
