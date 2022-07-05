@@ -1,7 +1,8 @@
-import { Button, Paper, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Button, Paper, TextField } from "@mui/material";
+import React, { useState } from "react";
 
 const Search = () => {
+	const [textFeild, setTextFeild] = useState("");
 	return (
 		<div>
 			<Paper
@@ -17,6 +18,8 @@ const Search = () => {
 				}}
 			>
 				<TextField
+					value={textFeild}
+					onChange={(e) => setTextFeild(e.target.value)}
 					fullWidth
 					placeholder="Search address, block, transaction, tag..."
 				/>

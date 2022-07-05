@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 
-import axios from "axios";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -19,9 +19,9 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-
-import { BASE_API } from "../../Constant";
 import { TableHead, Typography } from "@mui/material";
+
+import { fetchTopHolders } from "../../store/actions/fetchTopholdersAction";
 import Error from "../../Components/Error/Error";
 
 function TablePaginationActions(props) {
@@ -96,28 +96,18 @@ TablePaginationActions.propTypes = {
 export default function TopHolders() {
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
-	const [topHolderList, setTopHolderList] = useState([]);
+	// const [topHolderList, setTopHolderList] = useState([]);
 	const [error, setError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const dispatch = useDispatch();
 
-	const fetchTopHolders = () => {
-		axios
-			.get(BASE_API + "?q=rich")
-			.then(
-				(res) => setTopHolderList(res.data.rich1000),
-				setIsLoading(false),
-				setError(false),
-			)
-			.catch(
-				(err) => setError(true),
-				setIsLoading(false),
-				setTopHolderList([]),
-			);
-	};
+	const topHolderList = useSelector(
+		(state) => state.fetchTopHolderReducer.topHolders || [],
+	);
 
 	useEffect(() => {
-		fetchTopHolders();
-	}, []);
+		dispatch(fetchTopHolders);
+	}, [dispatch]);
 
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
@@ -167,7 +157,7 @@ export default function TopHolders() {
 								  )
 								: topHolderList
 							).map((row, index) => (
-								<TableRow key={row.name}>
+								<TableRow key={row.addr}>
 									<TableCell
 										sx={{ borderRight: "2px solid #d3d3d3" }}
 										component="th"
